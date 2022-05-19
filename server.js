@@ -29,12 +29,35 @@ app.post("/api/accounts", async (req, res) => {
     const account = {
         ...req.body,
     };
+    console.log(account);
     await accountCollection.insertOne(account);
     res.json({
         success: true,
         account
     });
 })
+
+app.delete('/api/accounts/:id', async (req, res) => {
+    await accountCollection.deleteOne({ _id: ObjectId(req.params.id) });
+    res.status(204).send();
+});
+
+app.put('/api/accounts/:id', async (req, res) => {
+    let account = await accountCollection.findOne({ _id: ObjectId(req.params.id) });
+    account = {
+        ...account,
+        ...req.body,
+    };
+    await accountCollection.updateOne({ _id: ObjectId(req.params.id) }, { $set: account });
+    res.json({
+        success: true,
+        entry
+    });
+});
+
+
+
+
 
 
 
