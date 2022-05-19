@@ -1,0 +1,27 @@
+{
+  "name": "the-bank",
+  "version": "1.0.0",
+  "description": "Bank made with REST-API, MongoDB, JSON, Express",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/piggelini/the-bank.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/piggelini/the-bank/issues"
+  },
+  "homepage": "https://github.com/piggelini/the-bank#readme",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "mongodb": "^4.6.0",
+    "nodemon": "^2.0.16"
+  }
+}
