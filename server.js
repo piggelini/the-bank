@@ -25,6 +25,7 @@ app.get("/api/accounts", async (req, res) => {
     res.json(accounts);
 })
 
+
 app.post("/api/accounts", async (req, res) => {
     const account = {
         ...req.body,
@@ -51,12 +52,9 @@ app.put('/api/accounts/:id', async (req, res) => {
     await accountCollection.updateOne({ _id: ObjectId(req.params.id) }, { $set: account });
     res.json({
         success: true,
-        entry
+        account
     });
 });
-
-
-
 
 
 

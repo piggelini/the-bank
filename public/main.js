@@ -1,7 +1,8 @@
 const container = document.querySelector(".account-container");
-const submitForm = document.querySelector("form");
+const submitForm = document.querySelector(".create-form");
 const accountName = document.getElementById("name");
-const balance = document.getElementById("balance");
+const createBalance = document.getElementById("balance");
+const contentContainer = document.querySelector(".content-container")
 let accounts = [];
 
 
@@ -45,12 +46,14 @@ async function getAccounts() {
 
         button.addEventListener("click", (e) => {
             console.log(button);
-            editAccount(e);
+            getAccount(e);
         })
     })
 
 
 }
+
+
 
 
 getAccounts();
@@ -73,7 +76,7 @@ async function createAccount() {
         body: JSON.stringify({
 
             name: accountName.value,
-            balance: balance.value
+            balance: createBalance.value
 
         }
         ),
@@ -96,10 +99,72 @@ const deleteAccount = async (e) => {
     getAccounts();
 }
 
-const editAccount = async (e) => {
-    editPostItem = accounts.find(({ _id }) => _id === e.target.dataset.postid);
+const editMode = (account) => {
 
-    formTitle.value = editPostItem.title;
-    formContent.value = editPostItem.content;
-    formTags.value = editPostItem.tags.join(',');
+
+    console.log(account);
+    submitForm.classList.add("create-form-hide");
+    container.classList.add("account-container-hide");
+
+    let editForm =
+        `
+    <form class="create-form">
+    <h2>Edit account balance</h2>
+    <label for="name">Account name</label>
+    <input type="text" name="name" id="name" value = ${account.name} disabled>
+    <label for="balance">Account balance</label>
+    <input type="balance" name="balance" id="edit-balance" value = ${account.balance}>
+    <button type="submit" class="save-btn">Save edit</button>
+</form>
+    `
+    contentContainer.innerHTML = editForm;
+
+    let saveEditBtn = document.querySelector(".save-btn");
+
+    saveEditBtn.addEventListener("click", (e) => {
+        editAccount(account._id);
+    })
+
+    const editAccount = async (id) => {
+
+        let balance = document.getElementById("edit-balance");
+
+        fetch(`/api/accounts/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+
+                balance: balance.value
+
+            }
+            ),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+
 }
+
+function getAccount(e) {
+
+    accounts.forEach((account) => {
+        console.log(account._id);
+        if (account._id == e.target.dataset.accountid) {
+            console.log(account);
+            editMode(account);
+        }
+
+    })
+
+}
+
+
+
