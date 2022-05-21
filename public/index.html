@@ -5,15 +5,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
     <title>Document</title>
 </head>
 
 <body>
     <header class="header">
-        <nav><a href=""></a><a href=""></a></nav>
+        <nav><a href="">Home</a><a href="">Accounts</a><a href="#" id="registerBtn" onclick="createRegisterForm()">Sign
+                up</a></nav>
+
     </header>
 
     <main>
+        <div class="login-box">
+            <form class="login-form">
+                <h2>Sign in</h2>
+                <label for="user">Username</label>
+                <input type="text" name="user" id="user">
+                <label for="user">Password</label>
+                <input type="password" name="pass" id="pass">
+                <button type="submit">Login</button>
+
+            </form>
+            <div class="registerForm"></div>
+        </div>
+        <div></div>
         <div class="content-container">
             <ul class="account-container"></ul>
         </div>
@@ -30,8 +46,9 @@
     </main>
 
     <footer class="footer"></footer>
-
+    <script src="users.js"></script>
     <script src="main.js"></script>
+
 </body>
 
 </html>

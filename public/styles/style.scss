@@ -1,0 +1,57 @@
+@import "partials/variables";
+
+body {
+    margin: 0;
+    background-color: $grey;
+}
+
+
+
+.header {
+    height: 100px;
+    width: 100vw;
+    background-color: $navy;
+
+}
+
+.account-container {
+
+    margin: 30px;
+    list-style: none;
+
+    li {
+        margin: 20px;
+        background-color: $blue;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: $grey;
+
+        p {
+            margin: 10px;
+        }
+
+        button {
+            margin: 10px;
+            background-color: $orange;
+            border-radius: 4px;
+            border: 1px solid $orange;
+            cursor: pointer;
+
+            &:hover {
+                height: 30px;
+                width: 120px;
+            }
+        }
+    }
+}
+
+
+.login-box {
+    background-color: $blue;
+
+    height: 250px;
+    width: 200px;
+}
+
+.hide-login-box {
+    display: none;
+}

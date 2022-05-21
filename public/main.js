@@ -2,7 +2,8 @@ const container = document.querySelector(".account-container");
 const submitForm = document.querySelector(".create-form");
 const accountName = document.getElementById("name");
 const createBalance = document.getElementById("balance");
-const contentContainer = document.querySelector(".content-container")
+const contentContainer = document.querySelector(".content-container");
+const loginNav = document.querySelector(".login-nav");
 let accounts = [];
 
 
@@ -61,7 +62,6 @@ getAccounts();
 
 submitForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    console.log("Hej");
     createAccount();
 
 })
@@ -113,21 +113,37 @@ const editMode = (account) => {
     <label for="name">Account name</label>
     <input type="text" name="name" id="name" value = ${account.name} disabled>
     <label for="balance">Account balance</label>
-    <input type="balance" name="balance" id="edit-balance" value = ${account.balance}>
-    <button type="submit" class="save-btn">Save edit</button>
+    <input type="balance" name="balance" id="edit-balance" value = ${account.balance} disabled>
+    
+    <label for="amount">Amount</label>
+    <input type="amount" name="amount" id="amount">
+    
+    <button type="submit" class="deposit-btn">Deposit money</button>
+    <button type="submit" class="withdraw-btn">Withdraw money</button>
 </form>
     `
     contentContainer.innerHTML = editForm;
 
-    let saveEditBtn = document.querySelector(".save-btn");
+    let depositBtn = document.querySelector(".deposit-btn");
+    let withdrawBtn = document.querySelector(".withdraw-btn");
 
-    saveEditBtn.addEventListener("click", (e) => {
-        editAccount(account._id);
+    depositBtn.addEventListener("click", (e) => {
+        editAccount(account._id, "deposit");
     })
 
-    const editAccount = async (id) => {
+    withdrawBtn.addEventListener("click", (e) => {
+        editAccount(account._id, "withdraw");
+    })
 
+    const editAccount = async (id, a) => {
+        let newBalance;
         let balance = document.getElementById("edit-balance");
+        let amount = document.getElementById("amount");
+        if (a === "withdraw" && amount.value < balance.value) {
+            newBalance = balance.value - amount.value;
+        } else if (a === "deposit") {
+            newBalance = parseInt(balance.value) + parseInt(amount.value);
+        }
 
         fetch(`/api/accounts/${id}`, {
             method: 'PUT',
@@ -136,7 +152,7 @@ const editMode = (account) => {
             },
             body: JSON.stringify({
 
-                balance: balance.value
+                balance: newBalance
 
             }
             ),
@@ -167,4 +183,8 @@ function getAccount(e) {
 }
 
 
+// loginNav.addEventListener("click", (e) => {
+//     const loginBox = document.querySelector(".login-box")
+//     loginBox.classList.toggle("hide-login-box");
+// })
 
