@@ -1,4 +1,5 @@
 const loginForm = document.querySelector(".login-form");
+const loginBox = document.querySelector(".login-box");
 const loginUser = document.getElementById("user");
 const loginPass = document.getElementById("pass");
 const registerBtn = document.getElementById("registerBtn");
@@ -17,7 +18,9 @@ loginForm.addEventListener("submit", async (e) => {
     const data = await response.json();
     getAccounts();
     if (data.user) {
-        loginForm.classList.add("hide-login-box");
+        loginBox.classList.add("hide-login-box");
+        createForm.classList.remove("create-form-hide");
+        registerBtn.classList.add("registerBtn-hide");
 
     }
 
@@ -36,7 +39,7 @@ let createRegisterForm = () => {
     <input type="text" name="user" id="reg-user">
     <label for="user">Password</label>
     <input type="password" name="pass" id="reg-pass">
-    <button id="register">Register</button>
+    <button id="register" class="btn-color">Register</button>
 </form>
     `
 
@@ -62,7 +65,7 @@ let createRegisterForm = () => {
         const data = await res.json();
         console.log("Registered!")
         loginForm.style.display = 'block';
-        registerForm.style.display = "none";
+        registerFormContainer.style.display = "none";
     });
 
 }
@@ -72,8 +75,12 @@ const checkLoggedin = async () => {
     const data = await res.json();
 
     if (data.user) {
-        loginForm.style.display = 'none';
+        loginBox.classList.add("hide-login-box");
+        createForm.classList.remove("create-form-hide");
+        registerBtn.classList.add("registerBtn-hide");
         getAccounts();
+    } else {
+        registerBtn.classList.remove("registerBtn-hide");
     }
 }
 

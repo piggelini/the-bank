@@ -1,5 +1,5 @@
 const container = document.querySelector(".account-container");
-const submitForm = document.querySelector(".create-form");
+const createForm = document.querySelector(".create-form");
 const accountName = document.getElementById("name");
 const createBalance = document.getElementById("balance");
 const contentContainer = document.querySelector(".content-container");
@@ -24,8 +24,8 @@ async function getAccounts() {
                 <p>${account.name}</p>
                 <p>Account number: ${account._id}</p>
                 <p>Balance: ${account.balance}</p>
-                <button class="delete-a" data-accountid="${account._id}">Delete account</button>
-                <button class="edit-a" data-accountid="${account._id}">Change balance</button>
+                <button class="delete-a  btn-color" data-accountid="${account._id}">Delete account</button>
+                <button class="edit-a btn-color" data-accountid="${account._id}">Change balance</button>
             </li>
             `
         container.innerHTML += item;
@@ -53,14 +53,7 @@ async function getAccounts() {
 
 
 }
-
-
-
-
-getAccounts();
-
-
-submitForm.addEventListener("submit", (e) => {
+createForm.addEventListener("submit", (e) => {
     e.preventDefault();
     createAccount();
 
@@ -84,6 +77,7 @@ async function createAccount() {
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
+            getAccounts();
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -103,12 +97,12 @@ const editMode = (account) => {
 
 
     console.log(account);
-    submitForm.classList.add("create-form-hide");
+    createForm.classList.add("create-form-hide");
     container.classList.add("account-container-hide");
 
     let editForm =
         `
-    <form class="create-form">
+    <form class="edit-form">
     <h2>Edit account balance</h2>
     <label for="name">Account name</label>
     <input type="text" name="name" id="name" value = ${account.name} disabled>
@@ -118,8 +112,8 @@ const editMode = (account) => {
     <label for="amount">Amount</label>
     <input type="amount" name="amount" id="amount">
     
-    <button type="submit" class="deposit-btn">Deposit money</button>
-    <button type="submit" class="withdraw-btn">Withdraw money</button>
+    <button type="submit" class="deposit-btn btn-color">Deposit money</button>
+    <button type="submit" class="withdraw-btn btn-color">Withdraw money</button>
 </form>
     `
     contentContainer.innerHTML = editForm;
@@ -137,15 +131,19 @@ const editMode = (account) => {
 
     const editAccount = async (id, a) => {
         let newBalance;
-        let balance = document.getElementById("edit-balance");
-        let amount = document.getElementById("amount");
-        if (a === "withdraw" && amount.value < balance.value) {
-            newBalance = balance.value - amount.value;
+        let balanceField = document.getElementById("edit-balance");
+        let amountField = document.getElementById("amount");
+        let balance = parseInt(balanceField.value);
+        let amount = parseInt(amountField.value);
+        if (a === "withdraw" && amount < balance) {
+            newBalance = balance - amount;
         } else if (a === "deposit") {
-            newBalance = parseInt(balance.value) + parseInt(amount.value);
+            newBalance = balance + amount;
+        } else {
+            return console.log("Failed to change balance");
         }
 
-        fetch(`/api/accounts/${id}`, {
+        await fetch(`/api/accounts/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

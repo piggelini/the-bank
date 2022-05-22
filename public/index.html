@@ -11,12 +11,12 @@
 
 <body>
     <header class="header">
-        <nav><a href="">Home</a><a href="">Accounts</a><a href="#" id="registerBtn" onclick="createRegisterForm()">Sign
-                up</a></nav>
+        <h1>The bank</h1>
+        <nav><a href="#" id="registerBtn" onclick="createRegisterForm()">Sign up</a></nav>
 
     </header>
 
-    <main>
+    <main class="main-content">
         <div class="login-box">
             <form class="login-form">
                 <h2>Sign in</h2>
@@ -24,7 +24,7 @@
                 <input type="text" name="user" id="user">
                 <label for="user">Password</label>
                 <input type="password" name="pass" id="pass">
-                <button type="submit">Login</button>
+                <button type="submit" class="btn-color">Login</button>
 
             </form>
             <div class="registerForm"></div>
@@ -32,16 +32,16 @@
         <div></div>
         <div class="content-container">
             <ul class="account-container"></ul>
-        </div>
-        <div class="createAccount">
-            <form class="create-form">
-                <h2>Create new account</h2>
-                <label for="name">Account name</label>
-                <input type="text" name="name" id="name">
-                <label for="balance">Account balance</label>
-                <input type="balance" name="balance" id="balance">
-                <button type="submit">Create</button>
-            </form>
+            <div class="createAccount">
+                <form class="create-form create-form-hide">
+                    <h2>Create new account</h2>
+                    <label for="name">Account name</label>
+                    <input type="text" name="name" id="name">
+                    <label for="balance">Account balance</label>
+                    <input type="balance" name="balance" id="balance">
+                    <button type="submit" class="btn-color">Create</button>
+                </form>
+            </div>
         </div>
     </main>
 
