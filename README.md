@@ -1,2 +1,2 @@
 # the-bank
-Bank made with REST-API, MongoDB, JSON, Express
+Bank made with NodeJS, REST-API, MongoDB, JSON, Express
